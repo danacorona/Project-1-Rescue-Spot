@@ -13,6 +13,10 @@ $(document).ready(function () {
             // Do something with `response.data.animals`
             console.dir(response);
             console.log(response.data.animals);
+            var animalsArr = response.data.animals;
+            for (i = 0; i < animalsArr.length; i++) {
+                console.log(animalsArr[i]);
+            }
 
         })
         .catch(function (error) {
