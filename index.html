@@ -14,20 +14,19 @@
 
     <body>
         <header>
-            <h1 >Rescue "Spot"</h1>
-                
+            <h1 >Rescue "Spot"</h1>   
         </header>
         <!-- Search -->
         <div class="row">
             <div class="col s12 m5 l2">
+                <h6>Sniff Out A New Friend Here!</h6>
                 <form action="#">
-                    <input type="text">
+                    <input class="citySearch" type="text">
                     <label for="city-search">Enter a city</label>
                     <br>
                     <div class=".input-field">
-                    <label for="state-search">State/Territory</label>
-                        <input class="select-dropdown dropdown-trigger" type="text" readonly="true">
-                        <select id="state-search" name="state">
+                        <select class="stateSearch" name="state-search" id="states">
+                            <option value=""></option>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
                             <option value="AZ">Arizona</option>
@@ -86,7 +85,9 @@
                             <option value="UM">United States Minor Outlying Islands</option>
                             <option value="VI">Virgin Islands</option>
                         </select>
-                    </div>
+                        <br>
+                        <label for="state-territory">State/Territory</label>
+                    </div><br>
                     <button id="submit" type="submit">Search</button>
                 </form>
             </div>
@@ -138,8 +139,8 @@
         </div>
 
         <!-- JS links, jquery and script.js -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <script src="script.js"></script>
     </body>
 
