@@ -1,0 +1,9 @@
+/* Event cards, right side of page */
+.event-card {
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 2px;
+    border-color: lightgray;
+    margin-bottom: 5px;
+    padding: 5px;
+}
