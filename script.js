@@ -8,7 +8,7 @@ $("document").ready(function(){
         event.preventDefault();
         console.log(citySearch.val().trim());
         console.log(stateSearch.val());
-
+        console.log("searched")
     })
 
 })
