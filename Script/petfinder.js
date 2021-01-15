@@ -54,7 +54,5 @@ $(document).ready(function () {
                 // Handle the error
                 console.log(error);
             });
-
     }
-    petfinderCall();
-})
+});
