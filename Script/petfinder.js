@@ -10,13 +10,20 @@ $(document).ready(function () {
 
     pf.animal.search({ location: "Austin, Texas" })
         .then(function (response) {
-            // Do something with `response.data.animals`
-            console.dir(response);
-            console.log(response.data.animals);
             var animalsArr = response.data.animals;
-            for (i = 0; i < animalsArr.length; i++) {
-                console.log(animalsArr[i]);
-            }
+            console.dir(animalsArr);
+            var name = animalsArr[0].name;
+            var age = animalsArr[0].age;
+            var breed = animalsArr[0].breeds.primary;
+            var gender = animalsArr[0].gender;
+            var url = animalsArr[0].url;
+            var description = animalsArr[0].description;
+            console.log("Name " + name);
+            console.log("Age " + age);
+            console.log("Breeds " + breed);
+            console.log("Gender " + gender);
+            console.log(url);
+            console.log(description);
 
         })
         .catch(function (error) {
