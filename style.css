@@ -1,6 +1,6 @@
 /* Heading */
 h1 {
-    background-color:#00063F;
+    background-color: navy;
     height: 150px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     color: white;
@@ -31,10 +31,13 @@ h1 {
     border-style: solid;
     border-width: 1px;
     border-color: lightgray;
-    margin: 3px;
 }
 
 #dog-image {
     box-sizing: border-box;
     margin: 3px;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 093edc52327bd038915a5cdbc71ba130583de46c
