@@ -91,7 +91,6 @@
                     <input class="btn waves-effect waves-light" type="submit" name="action">
                         <i class="material-icons right"></i>
                     </input>
-                    <!-- <button id="submit" type="submit">Search</button> -->
                 </form>
             </div>
             <!-- Dog info area -->
@@ -119,6 +118,7 @@
                         </div>
                     </div>
                 </div>
+                <br>
                 <div class="card horizontal dog-cards">
                     <div id="dog-image" class="card-image">
                         <img src="https://www.austinpetsalive.org/assets/animals/_gallery/20200516194616.jpeg" alt="picture of available dog">
@@ -142,6 +142,7 @@
                         </div>
                     </div>
                 </div>
+                <br>
                 <div class="card horizontal dog-cards">
                     <div id="dog-image" class="card-image">
                         <img src="https://www.austinpetsalive.org/assets/animals/_gallery/20200516194616.jpeg" alt="picture of available dog">
@@ -169,20 +170,27 @@
 
             <!-- Map column -->
             <div id="right-column" class="right col s12 m4 l4">
-                <div id="map-div" class="map">
+                <div id="map" class="map">
 
                 </div>
                 <br>
-                <div id="resources-div" class="resources">
+                <div id="resources" class="resources">
 
                 </div>
             </div>
+        </div>
+
         <!-- jQuery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- Script files for Pet Finder -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/@petfinder/petfinder-js/dist/petfinder.min.js"></script>
         <!-- Materialize JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <!-- Local JS -->
+        <!-- JS Links -->
         <script src="script.js"></script>
+        <script src="Script/script.js"></script>
+        <script src="Script/petfinder.js"></script>
+        
     </body>
-
 </html>
