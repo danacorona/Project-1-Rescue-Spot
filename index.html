@@ -4,6 +4,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Mapbox CSS file -->
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
         <!-- CSS links, Kube and style.css -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" integrity="sha512-UJfAaOlIRtdR+0P6C3KUoTDAxVTuy3lnSXLyLKlHYJlcSU8Juge/mjeaxDNMlw9LgeIotgz5FP8eUQPhX1q10A==" crossorigin="anonymous"/>
         <link rel="stylesheet" href="style.css">
@@ -170,14 +172,11 @@
 
             <!-- Map column -->
             <div id="right-column" class="right col s12 m4 l4">
-                <div id="map" class="map">
-
-                </div>
-                <br>
-                <div id="resources" class="resources">
-
-                </div>
+                <div id='map' style='width: 400px; height: 300px;'></div>
             </div>
+            <br>
+            <!-- <div id="resources" class="resources"></div>
+            </div> -->
         </div>
 
         <!-- jQuery -->
@@ -187,10 +186,13 @@
         <script src="https://unpkg.com/@petfinder/petfinder-js/dist/petfinder.min.js"></script>
         <!-- Materialize JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <!-- Mapbox JS -->
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
         <!-- JS Links -->
         <script src="script.js"></script>
         <script src="Script/script.js"></script>
         <script src="Script/petfinder.js"></script>
+        <script src="maps.js"></script>
         
     </body>
 
