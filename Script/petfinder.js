@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    // Initialization for dropdown states
+    $('select').formSelect();
     // API Keys
     var petfinderKey = "SQ6UnllCHsLaZRcQkfninVeneIproVkudasiqT8gBYdpYAF9BA";
     var petfinderSecret = "Z2E41aprwiJbwOKRbfbuWvMKBFUk6jqFTQ9B12NA";
