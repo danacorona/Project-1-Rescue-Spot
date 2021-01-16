@@ -15,8 +15,9 @@ $(document).ready(function () {
     function petfinderCall() {
         var pf = new petfinder.Client({ apiKey: petfinderKey, secret: petfinderSecret });
 
-        pf.animal.search({ location: "Austin, Texas" })
+        pf.animal.search({ location: userSearch })
             .then(function (response) {
+                //// Original array to pull data. Can remove all console logs in function when data is working with dog cards
                 var animalsArr = response.data.animals;
                 console.dir(animalsArr);
                 var name = animalsArr[0].name;
@@ -27,6 +28,9 @@ $(document).ready(function () {
                 var description = "";
                 if (description !== null) {
                     description = animalsArr[0].description;
+                }
+                else {
+                    description = "No Description.";
                 }
                 console.log("Name " + name);
                 console.log("Age " + age);
@@ -49,6 +53,9 @@ $(document).ready(function () {
 
                 // Parse Contact info
                 var address = animalsArr[0].contact.address.address1;
+                if (address == null) {
+                    address = "";
+                }
                 console.log(address);
                 var city = animalsArr[0].contact.address.city;
                 console.log(city);
@@ -63,20 +70,18 @@ $(document).ready(function () {
     }
 
 
-    // $("select").formSelect();
+    // Initialization for dropdown states
+    $("select").formSelect();
 
-    // $("#submit").submit(function (event) {
-    //     event.preventDefault();
-    //     console.log(citySearch.val().trim());
-    //     console.log(stateSearch.val());
-    //     console.log("searched")
-    // })
+    // Submit Button event listener for City and State Search
+    submitBtn.on("click", function (event) {
+        event.preventDefault();
+        var userCity = citySearch.val().trim();
+        var userState = $("#states").val();
 
-    submitBtn.on("click", function () {
-        var userCity = citySearch.val();
-        console.log(userCity);
-        var userState = $(".input-field").val();
-        console.log(userState);
+        // String to use for API call
+        userSearch = userCity + ", " + userState;
+        petfinderCall();
     })
 
 })
