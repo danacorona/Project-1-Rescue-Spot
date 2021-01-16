@@ -8,83 +8,21 @@ $(document).ready(function () {
     // Global Variables
     // User search is the string from the city state submit form.
     var userSearch = "";
-    // These are the variables from the API call. 
-    // I'm declaring them in the global scope as an empty string
-    // due to scope issues with calling the function to populate the info cards inside the API call function
-    // If someone knows a better solution I would love some help on this. -Trevor
-    var name = "";
-    var age = "";
-    var gender = "";
-    var url = "";
-    var spayedNeutered = "";
-    var address = "";
-    var city = "";
-    var state = "";
-    var description = "";
-    var photoURL = "";
 
 
     // Petfinder API Keys
     var petfinderKey = "SQ6UnllCHsLaZRcQkfninVeneIproVkudasiqT8gBYdpYAF9BA";
     var petfinderSecret = "Z2E41aprwiJbwOKRbfbuWvMKBFUk6jqFTQ9B12NA";
 
-    // API Call functions
+    // Petfinder API Call function
     function petfinderCall() {
         var pf = new petfinder.Client({ apiKey: petfinderKey, secret: petfinderSecret });
 
         pf.animal.search({ location: userSearch })
             .then(function (response) {
                 //// Original array to pull data. 
-                //// Can remove all console logs in function when data is working with dog cards
-                var animalsArr = response.data.animals;
-                console.dir(animalsArr);
-                name = animalsArr[0].name;
-                age = animalsArr[0].age;
-                breed = animalsArr[0].breeds.primary;
-                gender = animalsArr[0].gender;
-                url = animalsArr[0].url;
-                description = animalsArr[0].description;;
-                if (description === null) {
-                    description = "N/A"
-                }
-                spayedNeutered = animalsArr[0].attributes.spayed_neutered;
-                if (spayedNeutered === true) {
-                    spayedNeutered = "Yes"
-                }
-                else {
-                    spayedNeutered = "No"
-                }
-                console.log("Name " + name);
-                console.log("Age " + age);
-                console.log("Breed " + breed);
-                console.log("Gender " + gender);
-                console.log(url);
-                console.log(description);
-                console.log(spayedNeutered);
-
-                // Render photo
-                var photo = animalsArr[0].primary_photo_cropped;
-                if (photo !== null) {
-                    photoURL = photo.small;
-                    console.log("Photo URL: " + photoURL);
-                }
-                else {
-                    photoURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/488px-No-Image-Placeholder.svg.png";
-                    console.log("Photo URL: " + photoURL);
-                }
-
-                // Parse Contact info
-                address = animalsArr[0].contact.address.address1;
-                if (address == null) {
-                    address = "";
-                }
-                console.log(address);
-                city = animalsArr[0].contact.address.city;
-                console.log(city);
-                state = animalsArr[0].contact.address.state;
-                console.log(state);
-                populateDogCards();
-
+                animalsArr = response.data.animals;
+                populateDogCards(animalsArr);
             })
             .catch(function (error) {
                 // Handle the error
@@ -108,9 +46,46 @@ $(document).ready(function () {
     })
 
     // Function to populate Dag Cards Info
-    function populateDogCards() {
+    function populateDogCards(animalsArr) {
         dogInfo.empty();
-        dogInfo.prepend(/*html*/`<div class="card horizontal dog-cards">
+        for (var i = 0; i < 5; i++) {
+            name = animalsArr[i].name;
+            age = animalsArr[i].age;
+            breed = animalsArr[i].breeds.primary;
+            gender = animalsArr[i].gender;
+            url = animalsArr[i].url;
+            description = animalsArr[i].description;;
+            if (description === null) {
+                description = "N/A"
+            }
+            spayedNeutered = animalsArr[i].attributes.spayed_neutered;
+            if (spayedNeutered === true) {
+                spayedNeutered = "Yes"
+            }
+            else {
+                spayedNeutered = "No"
+            }
+
+            // Render photo
+            var photo = animalsArr[i].primary_photo_cropped;
+            if (photo !== null) {
+                photoURL = photo.small;
+                console.log("Photo URL: " + photoURL);
+            }
+            else {
+                photoURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/488px-No-Image-Placeholder.svg.png";
+                console.log("Photo URL: " + photoURL);
+            }
+
+            // Parse Contact info
+            address = animalsArr[i].contact.address.address1;
+            if (address == null) {
+                address = "";
+            }
+            city = animalsArr[i].contact.address.city;
+            state = animalsArr[i].contact.address.state;
+
+            dogInfo.prepend(/*html*/`<div class="card horizontal dog-cards">
                                     <div id="dog-image" class="card-image">
                                         <img class="materialboxed" width="100" height="200"
                                             src=${photoURL}
@@ -134,5 +109,6 @@ $(document).ready(function () {
                                     </div>
                                 </div>
                                  <br>`);
+        }
     }
 })
