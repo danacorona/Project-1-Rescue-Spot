@@ -102,6 +102,11 @@ $(document).ready(function () {
         var userCity = citySearch.val().trim();
         var userState = $("#states").val();
 
+        // Store previous searches
+        localStorage.setItem("city", JSON.stringify(userCity));
+        localStorage.setItem("state", JSON.stringify(userState));
+        console.log(userCity, userState);
+
         // String to use for API call
         userSearch = userCity + ", " + userState;
         petfinderCall();
