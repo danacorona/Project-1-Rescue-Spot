@@ -18,7 +18,12 @@ $(document).ready(function () {
     function petfinderCall() {
         var pf = new petfinder.Client({ apiKey: petfinderKey, secret: petfinderSecret });
 
-        pf.animal.search({ location: userSearch })
+        pf.animal.search({
+            location: userSearch,
+            type: "dog",
+            distance: 30,
+            limit: 100
+        })
             .then(function (response) {
                 //// Original array to pull data. 
                 animalsArr = response.data.animals;
@@ -53,15 +58,17 @@ $(document).ready(function () {
     // Function to populate Dag Cards Info
     function populateDogCards(animalsArr) {
         dogInfo.empty();
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < animalsArr.length; i++) {
             name = animalsArr[i].name;
             age = animalsArr[i].age;
             breed = animalsArr[i].breeds.primary;
             gender = animalsArr[i].gender;
             url = animalsArr[i].url;
-            description = animalsArr[i].description;;
+            description = animalsArr[i].description;
+            console.log(typeof description);
             if (description === null) {
                 description = "N/A"
+                console.log(typeof description);
             }
             spayedNeutered = animalsArr[i].attributes.spayed_neutered;
             if (spayedNeutered === true) {
@@ -83,8 +90,10 @@ $(document).ready(function () {
             }
 
             // Parse Contact info
-            address = animalsArr[i].contact.address.address1;
-            if (address == null) {
+            address = animalsArr[i].contact.address.address1 + ",";
+            console.log(typeof address);
+            if (address === null) {
+                console.log(typeof address);
                 address = "";
             }
             city = animalsArr[i].contact.address.city;
@@ -102,10 +111,7 @@ $(document).ready(function () {
                                             <p>Age: ${age}</p>
                                             <p>Gender: ${gender}</p>
                                             <p>Spayed/Neutered: ${spayedNeutered}</p>
-                                            <p>Location: <span>${address}</span><br>
-                                                        <span>${city}</span><br>
-                                                        <span>${state}</span>
-                                            </p>
+                                            <p>Location: ${address} ${city}, ${state}</p>
                                             <p>Description: ${description}</p>
                                         </div>
                                         <div class="card-action">
