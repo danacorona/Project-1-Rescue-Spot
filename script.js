@@ -106,7 +106,7 @@ $(document).ready(function () {
                                             <p>Gender: ${gender}</p>
                                             <p>Spayed/Neutered: ${spayedNeutered}</p>
                                             <p>Location: ${address} ${city}, ${state}</p>
-                                            <p>Description: ${description}</p>
+                                            <p>Description: ${decodeDescription(description)}</p>
                                         </div>
                                         <div class="card-action">
                                             <a href=${url}>See more!</a>
@@ -115,5 +115,10 @@ $(document).ready(function () {
                                 </div>
                                  <br>`);
         }
+    }
+
+    // Decode description function to account for apostrophes
+    function decodeDescription(description) {
+        return $("<span>").html(description).text();
     }
 })
