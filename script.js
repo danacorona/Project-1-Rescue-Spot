@@ -65,10 +65,8 @@ $(document).ready(function () {
             gender = animalsArr[i].gender;
             url = animalsArr[i].url;
             description = animalsArr[i].description;
-            console.log(typeof description);
             if (description === null) {
                 description = "N/A"
-                console.log(typeof description);
             }
             spayedNeutered = animalsArr[i].attributes.spayed_neutered;
             if (spayedNeutered === true) {
@@ -82,18 +80,14 @@ $(document).ready(function () {
             var photo = animalsArr[i].primary_photo_cropped;
             if (photo !== null) {
                 photoURL = photo.small;
-                console.log("Photo URL: " + photoURL);
             }
             else {
                 photoURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/488px-No-Image-Placeholder.svg.png";
-                console.log("Photo URL: " + photoURL);
             }
 
             // Parse Contact info
             address = animalsArr[i].contact.address.address1 + ",";
-            console.log(typeof address);
-            if (address === null) {
-                console.log(typeof address);
+            if (address === "null,") {
                 address = "";
             }
             city = animalsArr[i].contact.address.city;
