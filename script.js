@@ -21,7 +21,7 @@ $(document).ready(function () {
         pf.animal.search({
             location: userSearch,
             type: "dog",
-            distance: 30,
+            distance: 15,
             limit: 100
         })
             .then(function (response) {
@@ -42,16 +42,16 @@ $(document).ready(function () {
     // Submit Button event listener for City and State Search
     submitBtn.on("click", function (event) {
         event.preventDefault();
-        var userCity = citySearch.val().trim();
-        var userState = $("#states").val();
+        // var userCity = citySearch.val().trim();
+        // var userState = $("#states").val();
 
         // Store previous searches
-        localStorage.setItem("city", JSON.stringify(userCity));
-        localStorage.setItem("state", JSON.stringify(userState));
-        console.log(userCity, userState);
+        // localStorage.setItem("city", JSON.stringify(userCity));
+        // localStorage.setItem("state", JSON.stringify(userState));
+        // console.log(userCity, userState);
 
         // String to use for API call
-        userSearch = userCity + ", " + userState;
+        userSearch = $(".zipSearch").val().trim();
         petfinderCall();
     })
 
@@ -106,7 +106,7 @@ $(document).ready(function () {
                                             <p>Gender: ${gender}</p>
                                             <p>Spayed/Neutered: ${spayedNeutered}</p>
                                             <p>Location: ${address} ${city}, ${state}</p>
-                                            <p>Description: ${description}</p>
+                                            <p>Description: ${decodeDescription(description)}</p>
                                         </div>
                                         <div class="card-action">
                                             <a href=${url}>See more!</a>
@@ -115,5 +115,10 @@ $(document).ready(function () {
                                 </div>
                                  <br>`);
         }
+    }
+
+    // Decode description function to account for apostrophes
+    function decodeDescription(description) {
+        return $("<span>").html(description).text();
     }
 })
