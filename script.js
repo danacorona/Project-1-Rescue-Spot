@@ -18,7 +18,12 @@ $(document).ready(function () {
     function petfinderCall() {
         var pf = new petfinder.Client({ apiKey: petfinderKey, secret: petfinderSecret });
 
-        pf.animal.search({ location: userSearch })
+        pf.animal.search({
+            location: userSearch,
+            type: "dog",
+            distance: 30,
+            limit: 100
+        })
             .then(function (response) {
                 //// Original array to pull data. 
                 animalsArr = response.data.animals;
@@ -53,13 +58,13 @@ $(document).ready(function () {
     // Function to populate Dag Cards Info
     function populateDogCards(animalsArr) {
         dogInfo.empty();
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < animalsArr.length; i++) {
             name = animalsArr[i].name;
             age = animalsArr[i].age;
             breed = animalsArr[i].breeds.primary;
             gender = animalsArr[i].gender;
             url = animalsArr[i].url;
-            description = animalsArr[i].description;;
+            description = animalsArr[i].description;
             if (description === null) {
                 description = "N/A"
             }
@@ -75,16 +80,14 @@ $(document).ready(function () {
             var photo = animalsArr[i].primary_photo_cropped;
             if (photo !== null) {
                 photoURL = photo.small;
-                console.log("Photo URL: " + photoURL);
             }
             else {
                 photoURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/488px-No-Image-Placeholder.svg.png";
-                console.log("Photo URL: " + photoURL);
             }
 
             // Parse Contact info
-            address = animalsArr[i].contact.address.address1;
-            if (address == null) {
+            address = animalsArr[i].contact.address.address1 + ",";
+            if (address === "null,") {
                 address = "";
             }
             city = animalsArr[i].contact.address.city;
@@ -102,10 +105,7 @@ $(document).ready(function () {
                                             <p>Age: ${age}</p>
                                             <p>Gender: ${gender}</p>
                                             <p>Spayed/Neutered: ${spayedNeutered}</p>
-                                            <p>Location: <span>${address}</span><br>
-                                                        <span>${city}</span><br>
-                                                        <span>${state}</span>
-                                            </p>
+                                            <p>Location: ${address} ${city}, ${state}</p>
                                             <p>Description: ${description}</p>
                                         </div>
                                         <div class="card-action">
