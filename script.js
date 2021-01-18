@@ -8,6 +8,7 @@ $(document).ready(function () {
     // Global Variables
     // User search is the string from the city state submit form.
     var userSearch = "";
+    var searchStorage = [];
 
 
     // Petfinder API Keys
@@ -55,6 +56,8 @@ $(document).ready(function () {
         petfinderCall();
     })
 
+
+
     // Function to populate Dag Cards Info
     function populateDogCards(animalsArr) {
         dogInfo.empty();
@@ -101,20 +104,37 @@ $(document).ready(function () {
                                     </div>
                                     <div id="dog-card" class="card-stacked">
                                          <div class="card-content">
-                                            <p>Name: ${name}</p>
-                                            <p>Age: ${age}</p>
-                                            <p>Gender: ${gender}</p>
-                                            <p>Spayed/Neutered: ${spayedNeutered}</p>
-                                            <p>Location: ${address} ${city}, ${state}</p>
-                                            <p>Description: ${decodeDescription(description)}</p>
+                                            <p id="name-${[i]}">Name: ${name}</p>
+                                            <p id="age-${[i]}">Age: ${age}</p>
+                                            <p id="gender${[i]}">Gender: ${gender}</p>
+                                            <p id="spayed-neutered-${[i]}">Spayed/Neutered: ${spayedNeutered}</p>
+                                            <p id="location-${[i]}">Location: ${address} ${city}, ${state}</p>
+                                            <p id="description-${[i]}">Description: ${decodeDescription(description)}</p>
                                         </div>
                                         <div class="card-action">
-                                            <a href=${url}>See more!</a>
+                                            <a href=${url} id="photo-url-${[i]}">See more!</a>
+                                            <button class="btn waves-effect waves-light save-button" data-target="${[i]}" type="submit" name="action"
+                                        color="white">Save</button>
                                         </div>
                                     </div>
                                 </div>
                                  <br>`);
         }
+
+        // Save button event listener
+        $(".save-button").on("click", function (event) {
+            event.preventDefault();
+            var target = $(this).attr("data-target");
+            console.log(target);
+            var saveName = $("#name-" + target).text();
+            var saveAge = $("#age-" + target).text();
+            var saveGender = $("#gender-" + target).text();
+            var saveSpeyedNeutered = $("#spayed-neutered-" + target).text();
+            var saveLocation = $("#location-" + target).text();
+            var saveDescription = $("#description-" + target).text();
+            var savePhotoUrl = $("#photo-url-" + target).attr("href");
+            console.log(savePhotoUrl);
+        })
     }
 
     // Decode description function to account for apostrophes
