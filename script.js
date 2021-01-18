@@ -21,7 +21,7 @@ $(document).ready(function () {
         pf.animal.search({
             location: userSearch,
             type: "dog",
-            distance: 30,
+            distance: 15,
             limit: 100
         })
             .then(function (response) {
@@ -42,16 +42,16 @@ $(document).ready(function () {
     // Submit Button event listener for City and State Search
     submitBtn.on("click", function (event) {
         event.preventDefault();
-        var userCity = citySearch.val().trim();
-        var userState = $("#states").val();
+        // var userCity = citySearch.val().trim();
+        // var userState = $("#states").val();
 
         // Store previous searches
-        localStorage.setItem("city", JSON.stringify(userCity));
-        localStorage.setItem("state", JSON.stringify(userState));
-        console.log(userCity, userState);
+        // localStorage.setItem("city", JSON.stringify(userCity));
+        // localStorage.setItem("state", JSON.stringify(userState));
+        // console.log(userCity, userState);
 
         // String to use for API call
-        userSearch = userCity + ", " + userState;
+        userSearch = $(".zipSearch").val().trim();
         petfinderCall();
     })
 
