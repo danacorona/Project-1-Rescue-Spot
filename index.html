@@ -18,16 +18,19 @@
 </head>
 
 <body>
-    <header>
-        <h1>Rescue "Spot"</h1>
-    </header>
+    <nav>
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo center">Rescue "Spot"</a>
+        </div>
+      </nav>
     <!-- Search -->
-    <div class="row">
+    <div id="row" class="row container">
         <div id="search" class="col s12 m3 l2">
             <h6>Sniff Out A New Friend Here!</h6>
             <form action="#">
                 <input class="citySearch" type="text">
                 <label for="city-search">Enter a city</label>
+                <br>
                 <br>
                 <div class=".input-field">
                     <select class="stateSearch" name="state-search" id="states">
@@ -94,89 +97,36 @@
                     <label for="state-territory">State/Territory</label>
                 </div>
                 <br>
-                <input class="btn waves-effect waves-light" type="submit" name="action" id="submit-button">
-                <i class="material-icons right"></i>
-                </input>
+                <button id="submit-button" class="btn waves-effect waves-light" type="submit" name="action" color="white">Submit</button>
             </form>
             <!-- Previous searches -->
             <div id="prev-searches">
+
             </div>
         </div>
         <!-- Dog info area -->
         <div class="col s12 m5 l6" id="dog-info-container">
-            <div class="card horizontal dog-cards">
-                <div id="dog-image" class="card-image">
-                    <img class="materialboxed" width="100" height="200"
-                        src=""
-                        alt="picture of available dog">
-                </div>
-                <div id="dog-card" class="card-stacked">
-                    <div class="card-content">
-                        <p>Name:</p>
-                        <p>Age:</p>
-                        <p>Gender:</p>
-                        <p>Spayed/Neutered:</p>
-                        <p>Location:</p>
-                        <p>Description:</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="">See more!</a>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="card horizontal dog-cards">
-                <div id="dog-image" class="card-image">
-                    <img class="materialboxed" width="100" height="200"
-                        src=""
-                        alt="picture of available dog">
-                </div>
-                <div id="dog-card" class="card-stacked">
-                    <div class="card-content">
-                        <p>Name:</p>
-                        <p>Age:</p>
-                        <p>Gender:</p>
-                        <p>Spayed/Neutered:</p>
-                        <p>Location:</p>
-                        <p>Description:</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="">See more!</a>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="card horizontal dog-cards">
-                <div id="dog-image" class="card-image">
-                    <img class="materialboxed" width="100" height="200"
-                        src=""
-                        alt="picture of available dog">
-                </div>
-                <div id="dog-card" class="card-stacked">
-                    <div class="card-content">
-                        <p>Name:</p>
-                        <p>Age:</p>
-                        <p>Gender:</p>
-                        <p>Spayed/Neutered:</p>
-                        <p>Location:</p>
-                        <p>Description:</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="">See more!</a>
-                    </div>
-                </div>
-            </div>
+            
         </div>
-
         <!-- Map column -->
         <div id="right-column" class="right col s12 m4 l4">
-            <div id='map' style='width: 400px; height: 300px;'></div>
+            <div id="map" style='width: 500px; height: 350px'></div>
+            <br>
+            <div id="resources" class="row center-align">
+                <h6 class="resource-title">Pet Resources</h6>
+            </div>
+            <div>
+                <a href="#">Super cool resource link</a>
+                <br>
+                <a href="#">Super cool resource link</a>
+                <br>
+                <a href="#">Super cool resource link</a>
+                <br>
+                <a href="#">Super cool resource link</a>
+                <br>
+                <a href="#">Super cool resource link</a>
+            </div>
         </div>
-        <br>
-        <div id="resources" class="resources">
-
-        </div>
-
     </div>
 
     <!-- jQuery -->
