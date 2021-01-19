@@ -1,14 +1,12 @@
 $(document).ready(function () {
     // Selector Variables
-    var citySearch = $(".citySearch");
-    var stateSearch = $(".stateSearch");
     var submitBtn = $("#submit-button");
     var dogInfo = $("#dog-info-container");
+    var searchHistory = [];
 
     // Global Variables
     // User search is the string from the city state submit form.
     var userSearch = "";
-
 
     // Petfinder API Keys
     var petfinderKey = "SQ6UnllCHsLaZRcQkfninVeneIproVkudasiqT8gBYdpYAF9BA";
@@ -35,23 +33,19 @@ $(document).ready(function () {
             });
     }
 
-
-    // Initialization for dropdown states
-    $("select").formSelect();
-
     // Submit Button event listener for City and State Search
     submitBtn.on("click", function (event) {
         event.preventDefault();
-    // Local Storage saved zip searches
+    // Local Storage saved zip searches        
         var savedZip = $(".zipSearch").val().trim();
         localStorage.setItem("zip", JSON.stringify(savedZip));
-
-        console.log(savedZip);
-
+        searchHistory.unshift(savedZip);
+        console.log(searchHistory);
+        
         // String to use for API call
         userSearch = $(".zipSearch").val().trim();
         petfinderCall();
-    })
+    });
 
     // Function to populate Dag Cards Info
     function populateDogCards(animalsArr) {
