@@ -23,13 +23,15 @@ body {
 .btn {
     box-sizing: border-box;
     margin-bottom: 3px;
-    background-color: #f4a261
+    background-color: #f4a261;
 }
 
 /* Dog info div */
 #dog-info-container {
     box-sizing: border-box;
     padding: 3px;
+    max-height: 100vh;
+    overflow: auto;
 }
 
 /* Dog cards */
@@ -55,7 +57,6 @@ body {
 
 #resources {
     text-align: center;
-    text-;
     background-color: #264653;
     color: white;
     width: auto;
