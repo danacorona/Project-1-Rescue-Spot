@@ -49,7 +49,6 @@ $(document).ready(function () {
         var savedZip = $(".zipSearch").val().trim();
         localStorage.setItem("zip", JSON.stringify(savedZip));
         searchHistory.unshift(savedZip);
-        console.log(searchHistory);
         
         // String to use for API call
         userSearch = $(".zipSearch").val().trim();
@@ -225,7 +224,6 @@ $(document).ready(function () {
             method: "GET" }).then(function(response) {
                     var lat = response.features[0].center[0];
                     var lon = response.features[0].center[1];
-                    console.log(lat,lon);
                     mapboxgl.accessToken = 'pk.eyJ1IjoiZGFuYXhkZXNpIiwiYSI6ImNrang5Y201cTAyNjMyb2s3eGN2YnIxd2oifQ.73zCWiByD3IWE02kyeICaQ';
                     var map = new mapboxgl.Map({
                     container: 'map',
@@ -238,15 +236,26 @@ $(document).ready(function () {
              $.ajax({
                 url: "https://api.mapbox.com/geocoding/v5/mapbox.places/dog%20park.json?proximity=" + lat + "," + lon + "&access_token=pk.eyJ1IjoiZGFuYXhkZXNpIiwiYSI6ImNrang5Y201cTAyNjMyb2s3eGN2YnIxd2oifQ.73zCWiByD3IWE02kyeICaQ",
                 method: "GET" }).then(function(response) {
-                        console.log(response);
+                        var dogParks = response.features;
                         mapboxgl.accessToken = 'pk.eyJ1IjoiZGFuYXhkZXNpIiwiYSI6ImNrang5Y201cTAyNjMyb2s3eGN2YnIxd2oifQ.73zCWiByD3IWE02kyeICaQ';
                         var map = new mapboxgl.Map({
                         container: 'map',
                         style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
                         center: [lat, lon], // starting position [lng, lat]
                         zoom: 9 // starting zoom
+                        
                  });
+
+                 $("#dogParks").empty();
+                
+                for (var i = 0; i < dogParks.length; i++) {
+                    $("#dogParks").append(`<li> ${dogParks[i].text}</li>`);
+                }
+                 
             })
+             
+
+
         })    
     }
 
