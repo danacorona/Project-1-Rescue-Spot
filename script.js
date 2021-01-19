@@ -3,21 +3,34 @@ $(document).ready(function () {
     var submitBtn = $("#submit-button");
     var dogInfo = $("#dog-info-container");
     var searchHistory = [];
-
     var wishlist = $("#wishlist");
 
     // Global Variables
     // User search is the string from the city state submit form.
     var userSearch = "78704";
     var searchStorage = [];
-    // var saveSearch = {};
-
-    checkSavedSearches();
-    loadMap();
 
     // Petfinder API Keys
     var petfinderKey = "SQ6UnllCHsLaZRcQkfninVeneIproVkudasiqT8gBYdpYAF9BA";
     var petfinderSecret = "Z2E41aprwiJbwOKRbfbuWvMKBFUk6jqFTQ9B12NA";
+
+    checkSavedSearches();
+    loadMap();
+
+    // Submit Button event listener for Zip
+    submitBtn.on("click", function (event) {
+        event.preventDefault();
+        // Local Storage saved zip searches        
+        var savedZip = $(".zipSearch").val().trim();
+        localStorage.setItem("zip", JSON.stringify(savedZip));
+        searchHistory.unshift(savedZip);
+        console.log(searchHistory);
+
+        // String to use for API call
+        userSearch = $(".zipSearch").val().trim();
+        petfinderCall();
+        loadMap();
+    });
 
     // Petfinder API Call function
     function petfinderCall() {
@@ -39,21 +52,6 @@ $(document).ready(function () {
                 console.log(error);
             });
     }
-
-
-    // Submit Button event listener for City and State Search
-    submitBtn.on("click", function (event) {
-        event.preventDefault();
-        // Local Storage saved zip searches        
-        var savedZip = $(".zipSearch").val().trim();
-        localStorage.setItem("zip", JSON.stringify(savedZip));
-        searchHistory.unshift(savedZip);
-        
-        // String to use for API call
-        userSearch = $(".zipSearch").val().trim();
-        petfinderCall();
-        loadMap();
-    });
 
     // Function to populate Dag Cards Info
     function populateDogCards(animalsArr) {
@@ -195,8 +193,6 @@ $(document).ready(function () {
                                         </div>
                                         <div class="card-action">
                                             <a href=${url} id="photo-url-${[i]}">See more!</a>
-                                            <button class="btn waves-effect waves-light save-button" data-target="${[i]}" type="submit" name="action"
-                                        color="white">Save</button>
                                         </div>
                                     </div>
                                 </div>
@@ -219,41 +215,43 @@ $(document).ready(function () {
         var lon = "";
         $.ajax({
             url: "https://api.mapbox.com/geocoding/v5/mapbox.places/" + userSearch + ".json?access_token=pk.eyJ1IjoiZGFuYXhkZXNpIiwiYSI6ImNrang5Y201cTAyNjMyb2s3eGN2YnIxd2oifQ.73zCWiByD3IWE02kyeICaQ",
-            method: "GET" }).then(function(response) {
-                    var lat = response.features[0].center[0];
-                    var lon = response.features[0].center[1];
-                    mapboxgl.accessToken = 'pk.eyJ1IjoiZGFuYXhkZXNpIiwiYSI6ImNrang5Y201cTAyNjMyb2s3eGN2YnIxd2oifQ.73zCWiByD3IWE02kyeICaQ';
-                    var map = new mapboxgl.Map({
+            method: "GET"
+        }).then(function (response) {
+            var lat = response.features[0].center[0];
+            var lon = response.features[0].center[1];
+            mapboxgl.accessToken = 'pk.eyJ1IjoiZGFuYXhkZXNpIiwiYSI6ImNrang5Y201cTAyNjMyb2s3eGN2YnIxd2oifQ.73zCWiByD3IWE02kyeICaQ';
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+                center: [lat, lon], // starting position [lng, lat]
+                zoom: 9 // starting zoom
+
+
+            });
+            $.ajax({
+                url: "https://api.mapbox.com/geocoding/v5/mapbox.places/dog%20park.json?proximity=" + lat + "," + lon + "&access_token=pk.eyJ1IjoiZGFuYXhkZXNpIiwiYSI6ImNrang5Y201cTAyNjMyb2s3eGN2YnIxd2oifQ.73zCWiByD3IWE02kyeICaQ",
+                method: "GET"
+            }).then(function (response) {
+                var dogParks = response.features;
+                mapboxgl.accessToken = 'pk.eyJ1IjoiZGFuYXhkZXNpIiwiYSI6ImNrang5Y201cTAyNjMyb2s3eGN2YnIxd2oifQ.73zCWiByD3IWE02kyeICaQ';
+                var map = new mapboxgl.Map({
                     container: 'map',
                     style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
                     center: [lat, lon], // starting position [lng, lat]
                     zoom: 9 // starting zoom
 
-                    
-             });
-             $.ajax({
-                url: "https://api.mapbox.com/geocoding/v5/mapbox.places/dog%20park.json?proximity=" + lat + "," + lon + "&access_token=pk.eyJ1IjoiZGFuYXhkZXNpIiwiYSI6ImNrang5Y201cTAyNjMyb2s3eGN2YnIxd2oifQ.73zCWiByD3IWE02kyeICaQ",
-                method: "GET" }).then(function(response) {
-                        var dogParks = response.features;
-                        mapboxgl.accessToken = 'pk.eyJ1IjoiZGFuYXhkZXNpIiwiYSI6ImNrang5Y201cTAyNjMyb2s3eGN2YnIxd2oifQ.73zCWiByD3IWE02kyeICaQ';
-                        var map = new mapboxgl.Map({
-                        container: 'map',
-                        style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-                        center: [lat, lon], // starting position [lng, lat]
-                        zoom: 9 // starting zoom
-                        
-                 });
+                });
 
-                 $("#dogParks").empty();
-                
+                $("#dogParks").empty();
+
                 for (var i = 0; i < dogParks.length; i++) {
                     $("#dogParks").append(`<li> ${dogParks[i].text}</li>`);
                 }
-                 
+
             })
-             
 
 
-        })    
+
+        })
     }
 })
