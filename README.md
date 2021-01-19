@@ -5,7 +5,6 @@ Create an app that searches for adoptable dogs in your area and pull in a map wi
 ## Built With 
 
 * HTML
-* CSS
 * Materialize
 * JavaScript
 * Petfinder API
@@ -20,6 +19,14 @@ Richard Gabaree
 
 ## What we learned
 
+* Locating an API that would function within the app parameters
+* Parsing through the data to filter out what is needed dynamically integrate into the 
+* Learning Materialize and how it works with HTML and javaScript
+* Making adjustment to on the fly to fix needed outcome
+* Learning to collaborate with branches on the same project
+
+
+
 ## License Used
 
-M 
+MIT License
