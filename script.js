@@ -10,9 +10,9 @@ $(document).ready(function () {
     // User search is the string from the city state submit form.
     var userSearch = "";
     var searchStorage = [];
-    var saveSearch = {};
+    // var saveSearch = {};
 
-
+    checkSavedSearches();
 
     // Petfinder API Keys
     var petfinderKey = "SQ6UnllCHsLaZRcQkfninVeneIproVkudasiqT8gBYdpYAF9BA";
@@ -38,6 +38,7 @@ $(document).ready(function () {
                 console.log(error);
             });
     }
+
 
 
     // Initialization for dropdown states
@@ -156,9 +157,14 @@ $(document).ready(function () {
 
     // Click event for wishlist
     wishlist.on("click", function (event) {
-        console.log($(this));
         event.preventDefault();
-        displayWishlist(searchStorage);
+        if (searchStorage.length === 0) {
+            dogInfo.empty();
+            dogInfo.append(/*html*/`<h4>Your Wishlist Is Empty</h4>`);
+        }
+        else {
+            displayWishlist(searchStorage);
+        }
     })
 
     // Decode description function to account for apostrophes
@@ -169,10 +175,6 @@ $(document).ready(function () {
     // Function to show wishlist results
     function displayWishlist(searchStorage) {
         dogInfo.empty();
-        var checkStorage = JSON.parse(localStorage.getItem("saved"));
-        if (checkStorage !== null) {
-            searchStorage = checkStorage;
-        }
         for (i = 0; i < searchStorage.length; i++) {
             var photoURL = searchStorage[i].photoURL;
             var name = searchStorage[i].name;
@@ -206,6 +208,14 @@ $(document).ready(function () {
                                     </div>
                                 </div>
                                  <br>`);
+        }
+    }
+
+    // Function to check searchStorage
+    function checkSavedSearches() {
+        var checkStorage = JSON.parse(localStorage.getItem("saved"));
+        if (checkStorage !== null) {
+            searchStorage = checkStorage;
         }
     }
 })
