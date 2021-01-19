@@ -54,8 +54,9 @@ $(document).ready(function () {
         // String to use for API call
         userSearch = $(".zipSearch").val().trim();
         petfinderCall();
-    });
         loadMap();
+    });
+        
 
     // Function to populate Dag Cards Info
     function populateDogCards(animalsArr) {
@@ -216,19 +217,38 @@ $(document).ready(function () {
 
 
     function loadMap () {
+
+        var lat = "";
+        var lon = "";
         $.ajax({
             url: "https://api.mapbox.com/geocoding/v5/mapbox.places/" + userSearch + ".json?access_token=pk.eyJ1IjoiZGFuYXhkZXNpIiwiYSI6ImNrang5Y201cTAyNjMyb2s3eGN2YnIxd2oifQ.73zCWiByD3IWE02kyeICaQ",
             method: "GET" }).then(function(response) {
-                    console.log(response);
                     var lat = response.features[0].center[0];
                     var lon = response.features[0].center[1];
+                    console.log(lat,lon);
                     mapboxgl.accessToken = 'pk.eyJ1IjoiZGFuYXhkZXNpIiwiYSI6ImNrang5Y201cTAyNjMyb2s3eGN2YnIxd2oifQ.73zCWiByD3IWE02kyeICaQ';
                     var map = new mapboxgl.Map({
                     container: 'map',
                     style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
                     center: [lat, lon], // starting position [lng, lat]
                     zoom: 9 // starting zoom
+
+                    
              });
-        })
+             $.ajax({
+                url: "https://api.mapbox.com/geocoding/v5/mapbox.places/dog%20park.json?proximity=" + lat + "," + lon + "&access_token=pk.eyJ1IjoiZGFuYXhkZXNpIiwiYSI6ImNrang5Y201cTAyNjMyb2s3eGN2YnIxd2oifQ.73zCWiByD3IWE02kyeICaQ",
+                method: "GET" }).then(function(response) {
+                        console.log(response);
+                        mapboxgl.accessToken = 'pk.eyJ1IjoiZGFuYXhkZXNpIiwiYSI6ImNrang5Y201cTAyNjMyb2s3eGN2YnIxd2oifQ.73zCWiByD3IWE02kyeICaQ';
+                        var map = new mapboxgl.Map({
+                        container: 'map',
+                        style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+                        center: [lat, lon], // starting position [lng, lat]
+                        zoom: 9 // starting zoom
+                 });
+            })
+        })    
     }
+
+
 })
