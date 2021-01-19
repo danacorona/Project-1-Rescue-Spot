@@ -8,11 +8,12 @@ $(document).ready(function () {
 
     // Global Variables
     // User search is the string from the city state submit form.
-    var userSearch = "";
+    var userSearch = "78704";
     var searchStorage = [];
     // var saveSearch = {};
 
     checkSavedSearches();
+    loadMap();
 
     // Petfinder API Keys
     var petfinderKey = "SQ6UnllCHsLaZRcQkfninVeneIproVkudasiqT8gBYdpYAF9BA";
@@ -39,23 +40,22 @@ $(document).ready(function () {
             });
     }
 
-    // Initialization for dropdown states
-    $("select").formSelect();
 
     // Submit Button event listener for City and State Search
     submitBtn.on("click", function (event) {
         event.preventDefault();
-    // Local Storage saved zip searches        
+        // Local Storage saved zip searches        
         var savedZip = $(".zipSearch").val().trim();
         localStorage.setItem("zip", JSON.stringify(savedZip));
         searchHistory.unshift(savedZip);
         console.log(searchHistory);
-        
+
         // String to use for API call
         userSearch = $(".zipSearch").val().trim();
         petfinderCall();
-    });
         loadMap();
+    });
+
 
     // Function to populate Dag Cards Info
     function populateDogCards(animalsArr) {
@@ -215,20 +215,21 @@ $(document).ready(function () {
     }
 
 
-    function loadMap () {
+    function loadMap() {
         $.ajax({
             url: "https://api.mapbox.com/geocoding/v5/mapbox.places/" + userSearch + ".json?access_token=pk.eyJ1IjoiZGFuYXhkZXNpIiwiYSI6ImNrang5Y201cTAyNjMyb2s3eGN2YnIxd2oifQ.73zCWiByD3IWE02kyeICaQ",
-            method: "GET" }).then(function(response) {
-                    console.log(response);
-                    var lat = response.features[0].center[0];
-                    var lon = response.features[0].center[1];
-                    mapboxgl.accessToken = 'pk.eyJ1IjoiZGFuYXhkZXNpIiwiYSI6ImNrang5Y201cTAyNjMyb2s3eGN2YnIxd2oifQ.73zCWiByD3IWE02kyeICaQ';
-                    var map = new mapboxgl.Map({
-                    container: 'map',
-                    style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-                    center: [lat, lon], // starting position [lng, lat]
-                    zoom: 9 // starting zoom
-             });
+            method: "GET"
+        }).then(function (response) {
+            console.log(response);
+            var lat = response.features[0].center[0];
+            var lon = response.features[0].center[1];
+            mapboxgl.accessToken = 'pk.eyJ1IjoiZGFuYXhkZXNpIiwiYSI6ImNrang5Y201cTAyNjMyb2s3eGN2YnIxd2oifQ.73zCWiByD3IWE02kyeICaQ';
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+                center: [lat, lon], // starting position [lng, lat]
+                zoom: 9 // starting zoom
+            });
         })
     }
 })
