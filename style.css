@@ -4,13 +4,14 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.row container {
-    
+body {
+    background-color: #e9c46a;
 }
+
 /* Entire row, container */
 .container {
     width: 100vw;
-    background-color: #e9c46a;
+    
 }
 
 /* Search area */
