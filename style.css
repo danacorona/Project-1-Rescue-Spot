@@ -53,9 +53,8 @@ body {
     margin-top: 5px;
 }
 
-#resources {
+#resources, #dogPark {
     text-align: center;
-    text-;
     background-color: #264653;
     color: white;
     width: auto;
