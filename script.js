@@ -42,13 +42,11 @@ $(document).ready(function () {
     // Submit Button event listener for City and State Search
     submitBtn.on("click", function (event) {
         event.preventDefault();
-        // var userCity = citySearch.val().trim();
-        // var userState = $("#states").val();
+    // Local Storage saved zip searches
+        var savedZip = $(".zipSearch").val().trim();
+        localStorage.setItem("zip", JSON.stringify(savedZip));
 
-        // Store previous searches
-        // localStorage.setItem("city", JSON.stringify(userCity));
-        // localStorage.setItem("state", JSON.stringify(userState));
-        // console.log(userCity, userState);
+        console.log(savedZip);
 
         // String to use for API call
         userSearch = $(".zipSearch").val().trim();
